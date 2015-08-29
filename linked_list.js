@@ -25,6 +25,16 @@ function Node(data) {
       } else {
         return this.link.includes(data);
       }
+    },
+    pop: function(list) {
+      if (this.link.link === null) {
+        var popped = this.link;
+        this.link = null;
+        list.tail = this;
+        return popped.data;
+      } else {
+        return this.link.pop(list)
+      }
     }
   }
 };
@@ -58,5 +68,13 @@ function includes(list, data) {
     return false;
   } else {
     return list.head.includes(data);
+  }
+}
+
+function pop(list) {
+  if (list.head === null) {
+    return "list is empty"
+  } else {
+    return list.head.pop(list);
   }
 }

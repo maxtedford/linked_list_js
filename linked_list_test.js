@@ -47,7 +47,16 @@ describe('testing', function () {
     append(list, "onions");
     assert.equal(includes(list, "onions"), true);
     assert.equal(includes(list, "anchovies"), false);
+  });
+  
+  it('can pop the last node off the end of the list', function() {
+    var list = createList();
+    assert.equal(pop(list), "list is empty");
+    append(list, "pizza");
+    append(list, "pepperoni");
+    append(list, "onions");
+    assert.equal(list.tail.data, "onions");
+    assert.equal(pop(list), "onions");
+    assert.equal(list.tail.data, "pepperoni");
   })
-  
-  
 });
