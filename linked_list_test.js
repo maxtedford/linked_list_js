@@ -50,6 +50,14 @@ describe('testing', function () {
     assert.equal(list.includes("anchovies"), false);
   });
   
+  it('can return the count of all nodes in the list', function() {
+    var list = createList();
+    list.append("pizza");
+    list.append("pepperoni");
+    list.append("onions");
+    assert.equal(list.count(), 2)
+  });
+
   it('can pop the last node off the end of the list', function() {
     var list = createList();
     assert.equal(list.pop(), "list is empty");
@@ -60,12 +68,4 @@ describe('testing', function () {
     assert.equal(list.pop(), "onions");
     assert.equal(list.count(), 1);
   });
-  
-  it('can return the count of all nodes in the list', function() {
-    var list = createList();
-    list.append("pizza");
-    list.append("pepperoni");
-    list.append("onions");
-    assert.equal(list.count(), 2)
-  })
 });
