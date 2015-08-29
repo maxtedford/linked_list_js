@@ -1,7 +1,65 @@
+function createList() {
+  return new List;
+}
+
 function List() {
   return {
     head: null,
-    tail: null
+    tail: function() {
+      if (this.head === null) {
+        return "list is empty"
+      } else {
+        return this.head.tail();
+      }
+    },
+    append: function(data) {
+      if (this.head === null) {
+        this.head = new Node(data);
+        this.tail = this.head
+      } else {
+        this.head.push(this, data)
+      }
+    },
+    prepend: function(data) {
+      if (this.head === null) {
+        this.head = new Node(data);
+        this.tail = this.head;
+      } else {
+        var newNode = new Node(data);
+        newNode.link = this.head.link;
+        this.head.link = newNode;
+      }
+    },
+    insert: function(position, data) {
+      if (this.head === null) {
+        this.append(data);
+      } else {
+        var count = 0;
+        this.head.insert(count, position, data);
+      }
+    },
+    includes: function(data) {
+      if (this.head === null) {
+        return false;
+      } else {
+        return this.head.includes(data);
+      }
+    },
+    pop: function() {
+      if (this.head === null) {
+        return "list is empty"
+      } else {
+        return this.head.pop();
+      }
+    },
+    count: function() {
+      var counter = 0;
+      if (this.head === null) {
+        return 0
+      } else {
+        return this.head.count(counter)
+      }
+    }
   }
 };
 
@@ -9,12 +67,30 @@ function Node(data) {
   return {
     data: data,
     link: null,
+    tail: function() {
+      if (this.link === null) {
+        return this;
+      } else {
+        return this.link.tail();
+      }
+    },
     push: function(list, data) {
       if (this.link === null) {
         this.link = new Node(data);
         list.tail = this.link;
       } else {
         this.link.push(list, data);
+      } 
+    },
+    insert: function(count, position, data) {
+      if (count === (position - 1)) {
+        var node = new Node(data);
+        var link = this.link;
+        this.link = node;
+        node.link = link;
+      } else {
+        count++;
+        this.insert(count, position, data);
       }
     },
     includes: function(data) {
@@ -26,14 +102,16 @@ function Node(data) {
         return this.link.includes(data);
       }
     },
-    pop: function(list) {
-      if (this.link.link === null) {
+    doubleLink: function() {
+      return this.link.link
+    },
+    pop: function() {
+      if (this.doubleLink() === null) {
         var popped = this.link;
         this.link = null;
-        list.tail = this;
         return popped.data;
       } else {
-        return this.link.pop(list)
+        return this.link.pop()
       }
     },
     count: function(counter) {
@@ -46,52 +124,3 @@ function Node(data) {
     }
   }
 };
-
-function createList() {
-  return new List;
-}
-
-function append(list, data) {
-  if (list.head === null) {
-    list.head = new Node(data);
-    list.tail = list.head
-  } else {
-    list.head.push(list, data)
-  }
-}
-
-function prepend(list, data) {
-  if (list.head === null) {
-    list.head = new Node(data);
-    list.tail = list.head;
-  } else {
-    var newNode = new Node(data);
-    newNode.link = list.head.link;
-    list.head.link = newNode;
-  }
-}
-
-function includes(list, data) {
-  if (list.head === null) {
-    return false;
-  } else {
-    return list.head.includes(data);
-  }
-}
-
-function pop(list) {
-  if (list.head === null) {
-    return "list is empty"
-  } else {
-    return list.head.pop(list);
-  }
-}
-
-function count(list) {
-  var counter = 0;
-  if (list.head === null) {
-    return 0
-  } else {
-    return list.head.count(counter)
-  }
-}
