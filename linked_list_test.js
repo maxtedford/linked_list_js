@@ -58,5 +58,13 @@ describe('testing', function () {
     assert.equal(list.tail.data, "onions");
     assert.equal(pop(list), "onions");
     assert.equal(list.tail.data, "pepperoni");
+  });
+  
+  it('can return the count of all nodes in the list', function() {
+    var list = createList();
+    append(list, "pizza");
+    append(list, "pepperoni");
+    append(list, "onions");
+    assert.equal(count(list), 2)
   })
 });

@@ -35,6 +35,14 @@ function Node(data) {
       } else {
         return this.link.pop(list)
       }
+    },
+    count: function(counter) {
+      if (this.link === null) {
+        return counter;
+      } else {
+        counter ++;
+        return this.link.count(counter)
+      }
     }
   }
 };
@@ -76,5 +84,14 @@ function pop(list) {
     return "list is empty"
   } else {
     return list.head.pop(list);
+  }
+}
+
+function count(list) {
+  var counter = 0;
+  if (list.head === null) {
+    return 0
+  } else {
+    return list.head.count(counter)
   }
 }
